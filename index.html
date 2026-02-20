@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dr. Antonio Arévalo - Evaluación de Cirugía Plástica</title>
+    <link rel="stylesheet" href="landing.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Archivo de configuración -->
+    <script src="config.js"></script>
+
+    <!-- Meta Pixel Code -->
+    <script>
+        !function (f, b, e, v, n, t, s) {
+            if (f.fbq) return; n = f.fbq = function () {
+                n.callMethod ?
+                    n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+            };
+            if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0';
+            n.queue = []; t = b.createElement(e); t.async = !0;
+            t.src = v; s = b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t, s)
+        }(window, document, 'script',
+            'https://connect.facebook.net/en_US/fbevents.js');
+
+        function initFacebookPixel() {
+            const path = window.location.pathname;
+            let filename = path.substring(path.lastIndexOf('/') + 1).replace('.html', '');
+            if (!filename) filename = 'index';
+            let pixelId = '';
+
+            if (CLIENTS_CONFIG && CLIENTS_CONFIG[filename] &&
+                CLIENTS_CONFIG[filename].facebookPixel &&
+                CLIENTS_CONFIG[filename].facebookPixel.id) {
+                pixelId = CLIENTS_CONFIG[filename].facebookPixel.id;
+            }
+
+            if (pixelId) {
+                fbq('init', pixelId);
+                fbq('track', 'PageView');
+            }
+
+            const noscriptImg = document.getElementById('fb-pixel-noscript');
+            if (noscriptImg) {
+                noscriptImg.src = `https://www.facebook.com/tr?id=${pixelId}&ev=PageView&noscript=1`;
+            }
+        }
+        document.addEventListener('DOMContentLoaded', initFacebookPixel);
+    </script>
+    <noscript><img id="fb-pixel-noscript" height="1" width="1" style="display:none" src="" /></noscript>
+    <!-- End Meta Pixel Code -->
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="landing.js"></script>
+
+    <style>
+        /* Spinner Overlay para Mercado Pago */
+        .mercadopago-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            color: white;
+            font-size: 18px;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .mercadopago-spinner {
+            width: 60px;
+            height: 60px;
+            border: 5px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+            margin-bottom: 20px;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .loading-spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+            margin-right: 8px;
+            vertical-align: middle;
+        }
+
+        /* Estilo simple para la lista de precios estática */
+        .price-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .price-item strong {
+            font-weight: 600;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="landing-content" id="landing-content" style="display: none;">
+            <h1 class="compact-title">¿Eres candidato para cirugía plástica?</h1>
+            <p class="simple-intro">Responde unas breves preguntas y descubre si calificas para una consulta con el Dr.
+                Antonio Arévalo en Buenos Aires.</p>
+            <button class="cta-button" id="start-quiz">Evaluar Gratis Ahora</button>
+        </div>
+
+        <div class="quiz-container" id="quiz-container" style="display: flex; opacity: 1;">
+            <div class="doctor-profile">
+                <img src="images/antonioarevalo.png" alt="Dr. Antonio Arévalo" class="doctor-image">
+                <div class="doctor-name">Dr. Antonio Arévalo - Sanatorio Otamendi</div>
+            </div>
+
+            <div class="progress-bar">
+                <div class="progress" id="progress"></div>
+            </div>
+
+            <div class="question-container" id="question-container">
+                <!-- Questions will be inserted here by JavaScript -->
+            </div>
+
+            <div class="location-error" id="location-error">
+                <h3>Gracias por tu interés</h3>
+                <p>Lamentablemente, no podemos avanzar con tu cita si no puedes visitarnos en nuestra ubicación.</p>
+                <p>Nuestros tratamientos requieren atención presencial en nuestra clínica ubicada en Aguilar 2438
+                    colegiales piso 7, Buenos Aires (Sanatorio Otamendi).</p>
+                <button id="restart-quiz" class="restart-button">Volver al inicio</button>
+            </div>
+
+            <div class="buttons">
+                <button class="nav-button" id="prev-button" style="display: none;">← Regresar</button>
+                <button class="nav-button" id="next-button">Continuar →</button>
+            </div>
+        </div>
+
+        <div class="results-container" id="results-container">
+            <div class="doctor-profile">
+                <img src="images/antonioarevalo.png" alt="Dr. Antonio Arévalo" class="doctor-image">
+                <div class="doctor-name">Dr. Antonio Arévalo - Sanatorio Otamendi</div>
+            </div>
+
+            <h2 id="qualification-result"></h2>
+
+            <div class="pricing-info">
+                <h3>Precios de Referencia</h3>
+
+                <!-- Precios estáticos actualizados -->
+                <div class="price-grid" id="price-grid">
+                    <div class="price-item"><span>Consulta de Evaluación</span> <strong>$25.000</strong></div>
+                </div>
+
+                <div class="payment-note">
+                    <h4>IMPORTANTE: RESERVA DE CITA DEL 50% ($25.000)</h4>
+                    <p>Para confirmar tu cita es <strong>obligatorio</strong> realizar un pago anticipado de
+                        <strong>$25.000</strong> (50% de la valoración).
+                    </p>
+                    <p>El 50% restante ($25.000) se abona el día de la visita en la clínica.</p>
+                </div>
+            </div>
+
+            <div class="cta-container">
+                <button id="appointment-button" class="appointment-button">Ver disponibilidad</button>
+            </div>
+        </div>
+
+        <div class="form-container" id="form-container">
+            <div class="doctor-profile">
+                <img src="images/antonioarevalo.png" alt="Dr. Antonio Arévalo" class="doctor-image">
+                <div class="doctor-name">Dr. Antonio Arévalo - Sanatorio Otamendi</div>
+            </div>
+
+            <h2>Agenda tu consulta con el Dr. Antonio Arévalo</h2>
+
+            <div class="form-steps">
+                <!-- Paso 1: Seleccionar fecha y hora -->
+                <div class="form-step" id="form-step-1">
+                    <form id="appointment-form" class="appointment-form">
+                        <div class="date-time-selector">
+                            <div class="selector-section">
+                                <h4>Selecciona una fecha</h4>
+                                <div class="date-grid" id="date-grid"></div>
+                                <div class="loading-dates" id="loading-dates">
+                                    <div class="loading-spinner-large"></div>
+                                    <p>Consultando fechas disponibles en la agenda del Dr. Arévalo...</p>
+                                    <p style="font-size: 0.9rem; margin-top: 5px; color: #666;">Este proceso puede tomar
+                                        unos segundos. Por favor, espere.</p>
+                                </div>
+                                <input type="hidden" id="preferred-date" name="preferred-date" required>
+                            </div>
+
+                            <div class="selector-section">
+                                <h4>Selecciona una hora</h4>
+                                <div class="time-grid" id="time-grid"></div>
+                                <div class="loading-times" id="loading-times">
+                                    <div class="loading-spinner-large"></div>
+                                    <p>Selecciona primero una fecha para ver los horarios disponibles</p>
+                                    <p style="font-size: 0.9rem; margin-top: 5px; color: #666;">Los horarios se
+                                        mostrarán una vez que elijas una fecha</p>
+                                </div>
+                                <input type="hidden" id="preferred-time" name="preferred-time" required>
+                            </div>
+                        </div>
+
+                        <div class="selection-summary">
+                            <p>Tu cita: <span id="selected-date-display">Selecciona una fecha</span> a las <span
+                                    id="selected-time-display">Selecciona una hora</span></p>
+                        </div>
+
+                        <div class="centered-button-container">
+                            <button type="button" id="next-step-button" class="submit-button full-width">Continuar
+                                →</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Paso 2: Datos personales -->
+                <div class="form-step" id="form-step-2" style="display: none;">
+                    <form id="personal-info-form" class="appointment-form">
+                        <div class="form-group">
+                            <label for="whatsapp">Número de WhatsApp (incluye 549 + código de área)</label>
+                            <input type="tel" id="whatsapp" name="whatsapp" value="549" placeholder="Ej. 549381XXXXXXX"
+                                required>
+                            <div id="whatsapp-validation" class="validation-message"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="fullname">Nombre y Apellido</label>
+                            <input type="text" id="fullname" name="fullname" placeholder="Ej. Juan Pérez" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="main_doubt">¿Cuál es tu principal duda sobre el procedimiento?</label>
+                            <input type="text" id="main_doubt" name="main_doubt"
+                                placeholder="Escribe aquí tu duda o pregunta" required>
+                        </div>
+
+                        <div class="payment-confirmation-checkbox">
+                            <label class="checkbox-container">
+                                <input type="checkbox" id="payment-confirmation-checkbox">
+                                <span class="checkmark"></span>
+                                <span id="payment-confirmation-text">Entiendo que si no abono la reserva de $25.000
+                                    (50%) ahora, pierdo la reserva para <span id="payment-date-time">la fecha y hora
+                                        seleccionada</span></span>
+                            </label>
+                        </div>
+
+                        <div class="confirmation-footer">
+                            <button type="button" id="prev-step-button" class="back-button">← Regresar</button>
+                            <div class="button-container">
+                                <button type="button" id="finish-button" class="submit-button" disabled>PAGAR CITA
+                                    →</button>
+                                <div id="button-status-message" class="button-status-message">Debes confirmar que
+                                    entiendes la política de pago</div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

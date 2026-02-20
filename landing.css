@@ -1,0 +1,1765 @@
+:root {
+    --primary-color: #0d47a1;
+    --primary-color-rgb: 13, 71, 161;
+    --primary-color-dark: #002171;
+    --secondary-color: #e3f2fd;
+    --accent-color: #1976d2;
+    --accent-color-rgb: 25, 118, 210;
+    --text-color: #2c3e50;
+    --light-text: #ffffff;
+    --border-radius: 12px;
+    --box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+    --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    --whatsapp-color: #25D366;
+    --whatsapp-dark: #128C7E;
+    --highlight-color: #f39c12;
+    --highlight-color-light: #fdf2e9;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+    color: var(--text-color);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    width: 100%;
+    max-width: 900px;
+    height: 100vh;
+    max-height: 650px;
+    background-color: white;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Landing Content */
+.landing-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    padding: 2rem;
+    text-align: center;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+
+.compact-title {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+    text-align: center;
+}
+
+.simple-intro {
+    font-size: 1.2rem;
+    color: var(--text-color);
+    max-width: 600px;
+    margin: 0 auto 2rem;
+    text-align: center;
+}
+
+.cta-button {
+    background-color: var(--primary-color);
+    color: var(--light-text);
+    border: none;
+    padding: 1.2rem 2.5rem;
+    font-size: 1.3rem;
+    font-weight: 600;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    position: relative;
+    overflow: hidden;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    animation: pulse 2s infinite;
+}
+
+.cta-button:hover {
+    background-color: var(--accent-color);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+}
+
+.cta-button:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(var(--primary-color-rgb), 0.7);
+    }
+
+    70% {
+        box-shadow: 0 0 0 10px rgba(var(--primary-color-rgb), 0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(var(--primary-color-rgb), 0);
+    }
+}
+
+/* Quiz Container */
+.quiz-container {
+    display: none;
+    flex-direction: column;
+    height: 100%;
+    padding: 2rem 2rem 5rem 2rem;
+    /* Aumentar el padding inferior para dejar espacio para los botones */
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    position: relative;
+    /* Para posicionar los botones de navegación */
+    overflow-y: auto;
+    /* Permitir scroll si el contenido es demasiado largo */
+}
+
+/* Doctor Profile Header */
+.doctor-profile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--secondary-color);
+}
+
+.doctor-image {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--primary-color);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 0.5rem;
+}
+
+.doctor-name {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--primary-color);
+    text-align: center;
+    margin-bottom: 0.2rem;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 8px;
+    background-color: #e0e0e0;
+    border-radius: 4px;
+    margin-bottom: 2rem;
+    overflow: hidden;
+}
+
+.progress {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent-color), var(--primary-color));
+    width: 0;
+    transition: var(--transition);
+}
+
+.question-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding-bottom: 80px;
+    /* Espacio para los botones fijos */
+    overflow-y: auto;
+    /* Permitir scroll si el contenido es demasiado largo */
+}
+
+.question {
+    display: none;
+}
+
+.question.active {
+    display: block;
+}
+
+.question h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    color: var(--primary-color);
+    line-height: 1.4;
+    text-align: center;
+}
+
+.question .validation-message {
+    margin-top: 1rem;
+    text-align: center;
+    font-weight: 500;
+}
+
+.options {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    position: relative;
+    /* Para posicionar la flecha de scroll */
+}
+
+/* Estilos para mostrar opciones en dos columnas */
+.options-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+    width: 100%;
+}
+
+.options-grid .option {
+    margin: 0;
+}
+
+/* Estilos para la nueva visualización de precios */
+.price-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin: 1.5rem 0;
+}
+
+.price-card {
+    background-color: var(--secondary-color);
+    border-radius: var(--border-radius);
+    padding: 1.25rem;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.price-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+}
+
+.price-title {
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: var(--text-color);
+    margin-bottom: 0.75rem;
+}
+
+.price-amount {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 0.75rem;
+}
+
+.price-note {
+    font-size: 0.9rem;
+    color: #666;
+    font-style: italic;
+}
+
+.option {
+    background-color: var(--secondary-color);
+    padding: 0.5rem;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: var(--transition);
+    border: 2px solid transparent;
+    text-align: center;
+    font-size: 0.95rem;
+}
+
+.option:hover {
+    background-color: #e0e0e0;
+    border-color: #d0d0d0;
+}
+
+.option.selected {
+    background-color: var(--primary-color);
+    color: var(--light-text);
+    border-color: var(--primary-color);
+    box-shadow: 0 2px 8px rgba(142, 68, 173, 0.3);
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    /* Centrar por defecto */
+    margin-top: 2rem;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #ffffff;
+    padding: 1rem 2rem;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+    z-index: 100;
+}
+
+/* Cuando hay dos botones, cambiar a espacio entre ellos */
+.buttons.two-buttons {
+    justify-content: space-between;
+}
+
+#prev-button.nav-button {
+    margin-right: auto;
+    background-color: #f0f0f0 !important;
+    color: #666 !important;
+    border: 1px solid #ddd !important;
+    font-weight: normal !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+    animation: none !important;
+    white-space: nowrap;
+}
+
+#prev-button.nav-button:hover {
+    background-color: #e0e0e0 !important;
+    color: #444 !important;
+    transform: none !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+}
+
+.buttons #next-button {
+    background-color: var(--primary-color);
+    color: white;
+    font-weight: bold;
+    padding: 0.8rem 2rem;
+    border-radius: var(--border-radius);
+    box-shadow: 0 2px 8px rgba(142, 68, 173, 0.3);
+    animation: pulse 2s infinite;
+    width: auto;
+    white-space: nowrap;
+}
+
+.nav-button {
+    /* Estilos comunes para ambos botones */
+    padding: 0.8rem 1.5rem;
+    font-size: 1.1rem;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: var(--transition);
+    border: none;
+}
+
+/* Estilos por defecto para el botón siguiente (si no se sobreescriben) */
+#next-button.nav-button {
+    background-color: var(--primary-color);
+    color: var(--light-text);
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+/* Estilos hover y active solo para el botón siguiente */
+#next-button.nav-button:hover {
+    background-color: var(--accent-color);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+#next-button.nav-button:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilo para el botón siguiente cuando está centrado (primer paso) */
+.buttons:not(.two-buttons) #next-button {
+    width: 80%;
+    max-width: 300px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: bold;
+    padding: 1rem 2rem;
+    font-size: 1.2rem;
+    white-space: nowrap;
+}
+
+/* Estilos específicos para dispositivos móviles */
+@media (max-width: 768px) {
+    .buttons {
+        padding: 1rem;
+    }
+
+    .nav-button {
+        padding: 1rem 1.5rem;
+        font-size: 1.2rem;
+    }
+
+    #next-button {
+        width: 60%;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    /* Estilo para el botón siguiente cuando está centrado en móviles */
+    .buttons:not(.two-buttons) #next-button {
+        width: 90%;
+        max-width: 300px;
+        font-size: 1.3rem;
+    }
+
+    /* Asegurar que el botón no tenga un ancho fijo en móviles */
+    .buttons.two-buttons #next-button {
+        width: auto;
+    }
+}
+
+/* Results Container */
+.results-container {
+    display: none;
+    flex-direction: column;
+    height: 100%;
+    padding: 1.5rem;
+    overflow-y: auto;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.results-container h2 {
+    font-size: 1.5rem;
+    line-height: 1.4;
+    margin-bottom: 1.5rem;
+    color: var(--primary-color);
+    text-align: center;
+    padding: 1rem 1.5rem;
+    background-color: var(--secondary-color);
+    border-radius: var(--border-radius);
+    width: 100%;
+    max-width: 600px;
+    align-self: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.results-container h2.qualified {
+    animation: pulse 1.5s ease-in-out;
+}
+
+.location-info {
+    background-color: var(--secondary-color);
+    padding: 1rem;
+    border-radius: var(--border-radius);
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.pricing-info {
+    margin-bottom: 1.5rem;
+}
+
+.pricing-info h3 {
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
+    color: var(--primary-color);
+    text-align: center;
+}
+
+.price-note {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 1rem;
+    text-align: center;
+    font-style: italic;
+}
+
+.price-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.8rem 1rem;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.treatment-group {
+    margin-bottom: 1.2rem;
+    background-color: white;
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+    overflow: hidden;
+    border: 1px solid #f0f4f8;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.treatment-group:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.price-list {
+    background-color: var(--secondary-color);
+    padding: 1rem;
+    border-radius: var(--border-radius);
+}
+
+.price-row:last-child {
+    border-bottom: none;
+}
+
+.price-row.highlight {
+    background-color: var(--highlight-color-light);
+    font-weight: 700;
+}
+
+.price-row.price-detail {
+    background-color: #f9f9f9;
+    padding: 0.6rem 1rem 0.6rem 2rem;
+    font-size: 0.9rem;
+}
+
+.price-row:not(.price-detail)+.price-row:not(.price-detail) {
+    margin-top: 1rem;
+    border-top: 1px solid #f0f0f0;
+    padding-top: 1.2rem;
+}
+
+.price-row.valoracion-row {
+    background-color: var(--secondary-color);
+    font-weight: 600;
+    border-radius: var(--border-radius) var(--border-radius) 0 0;
+    margin-bottom: 0;
+    border: 1px solid #e0e0e0;
+    border-bottom: none;
+}
+
+.price-row.valoracion-detail {
+    background-color: #f9f9f9;
+    padding: 0.6rem 1rem 0.6rem 2rem;
+    font-size: 0.9rem;
+    border: 1px solid #e0e0e0;
+    border-top: none;
+    border-radius: 0 0 var(--border-radius) var(--border-radius);
+    margin-bottom: 1.5rem;
+}
+
+.price-label {
+    font-weight: 500;
+    flex: 1;
+}
+
+.price-value {
+    font-weight: 600;
+    color: var(--primary-color);
+    text-align: right;
+    min-width: 120px;
+}
+
+.price-row.highlight .price-value {
+    color: #e74c3c;
+    /* Rojo para mejor contraste */
+    font-weight: 700;
+}
+
+.price-list {
+    background-color: var(--secondary-color);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    margin-bottom: 1rem;
+}
+
+.payment-note {
+    background: linear-gradient(145deg, #ffffff, #fdfbfd);
+    border: 1px solid var(--primary-color);
+    border-radius: var(--border-radius);
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 15px rgba(142, 68, 173, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+.payment-note::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background-color: var(--primary-color);
+}
+
+.payment-note h4 {
+    color: var(--primary-color);
+    margin-bottom: 0.8rem;
+    font-size: 1.1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.payment-note p {
+    color: var(--text-color);
+    font-size: 0.95rem;
+    margin-bottom: 0.5rem;
+    line-height: 1.5;
+}
+
+.payment-note p:last-child {
+    margin-bottom: 0;
+    font-weight: 500;
+}
+
+.cta-container {
+    display: flex;
+    justify-content: center;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #ffffff;
+    padding: 1rem 2rem;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+    z-index: 100;
+}
+
+/* Estilo para el botón cuando está en el contenedor fijo */
+.cta-container .appointment-button {
+    width: 80%;
+    max-width: 300px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: bold;
+    padding: 1rem 2rem;
+    font-size: 1.2rem;
+    white-space: nowrap;
+}
+
+/* Estilos específicos para dispositivos móviles */
+@media (max-width: 768px) {
+    .cta-container {
+        padding: 1rem;
+    }
+
+    .cta-container .appointment-button {
+        width: 90%;
+        max-width: 300px;
+        font-size: 1.3rem;
+    }
+}
+
+/* Agregar espacio en la parte inferior del contenedor de resultados para que el contenido no quede oculto detrás del botón fijo */
+.results-container {
+    padding-bottom: 80px;
+}
+
+
+
+.appointment-button {
+    background-color: var(--primary-color);
+    color: var(--light-text);
+    border: none;
+    padding: 1rem 1.5rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: var(--transition);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    animation: pulse 2s infinite;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.appointment-button:hover {
+    background-color: var(--accent-color);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+}
+
+.appointment-button:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.appointment-button:disabled {
+    background-color: var(--primary-color-dark);
+    cursor: wait;
+    transform: none;
+    animation: none;
+    opacity: 0.9;
+}
+
+/* Form Container */
+.form-container {
+    display: none;
+    flex-direction: column;
+    height: 100%;
+    padding: 1.5rem;
+    overflow-y: auto;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.form-container h2 {
+    font-size: 1.6rem;
+    margin-bottom: 1rem;
+    color: var(--primary-color);
+    text-align: center;
+    padding-top: 1rem;
+    scroll-margin-top: 1rem;
+    position: relative;
+    z-index: 10;
+    background-color: white;
+    border-bottom: 2px solid var(--highlight-color-light);
+    padding-bottom: 0.8rem;
+}
+
+.form-container h3 {
+    font-size: 1.3rem;
+    margin-bottom: 1.5rem;
+    color: var(--primary-color);
+    text-align: center;
+}
+
+.payment-reminder {
+    background: linear-gradient(145deg, #ffffff, #fdfbfd);
+    border: 1px solid #e0e0e0;
+    border-radius: var(--border-radius);
+    padding: 1.25rem;
+    margin-bottom: 1.5rem;
+    border-left: 4px solid var(--primary-color);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    scroll-margin-top: 1rem;
+}
+
+.payment-reminder p {
+    color: var(--text-color);
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    line-height: 1.5;
+}
+
+.payment-reminder p:last-child {
+    margin-bottom: 0;
+}
+
+.form-step {
+    margin-bottom: 1.5rem;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid #ddd;
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    transition: var(--transition);
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    border-color: var(--primary-color);
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(142, 68, 173, 0.2);
+}
+
+/* Selector de fecha y hora con grid */
+.date-time-selector {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.selector-section h4 {
+    margin-bottom: 0.8rem;
+    color: var(--primary-color);
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+.date-grid,
+.time-grid {
+    display: none;
+    /* Inicialmente ocultos, se mostrarán con JavaScript */
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 0.5rem;
+    max-height: 200px;
+    overflow-y: auto;
+    padding: 0.5rem;
+    background-color: var(--secondary-color);
+    border-radius: var(--border-radius);
+}
+
+.date-option,
+.time-option {
+    background-color: white;
+    border: 1px solid #e0e0e0;
+    border-radius: var(--border-radius);
+    padding: 0.6rem 0.5rem;
+    text-align: center;
+    cursor: pointer;
+    transition: var(--transition);
+    font-size: 0.9rem;
+}
+
+.date-option:hover,
+.time-option:hover {
+    background-color: #f5f5f5;
+    transform: translateY(-2px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.date-option.selected,
+.time-option.selected {
+    background-color: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+    font-weight: 500;
+    box-shadow: 0 2px 6px rgba(142, 68, 173, 0.3);
+}
+
+.selection-summary {
+    background-color: var(--secondary-color);
+    padding: 0.8rem 1rem;
+    border-radius: var(--border-radius);
+    margin-bottom: 1.5rem;
+    text-align: center;
+    font-weight: 500;
+}
+
+.selection-summary span {
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+/* Estilos para el scroll en los grids */
+.date-grid::-webkit-scrollbar,
+.time-grid::-webkit-scrollbar {
+    width: 6px;
+}
+
+.date-grid::-webkit-scrollbar-track,
+.time-grid::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+.date-grid::-webkit-scrollbar-thumb,
+.time-grid::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 10px;
+}
+
+.date-grid::-webkit-scrollbar-thumb:hover,
+.time-grid::-webkit-scrollbar-thumb:hover {
+    background: #a1a1a1;
+}
+
+/* Mantener el estilo original para compatibilidad */
+.custom-select {
+    position: relative;
+}
+
+.custom-select select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23333' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 0.7rem center;
+    background-size: 1em;
+}
+
+.payment-confirmation {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    background-color: var(--highlight-color-light);
+    padding: 1rem;
+    border-radius: var(--border-radius);
+    border-left: 4px solid var(--highlight-color);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.payment-confirmation input {
+    margin-right: 0.8rem;
+    width: 20px;
+    height: 20px;
+    accent-color: var(--primary-color);
+}
+
+.payment-confirmation label {
+    font-size: 1rem;
+    line-height: 1.4;
+    font-weight: 500;
+    color: #333;
+}
+
+.form-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2rem;
+    width: 100%;
+    gap: 10px;
+}
+
+.submit-button {
+    flex: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-weight: 600;
+    transition: var(--transition);
+    text-align: center;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.25);
+    font-size: 1.05rem;
+    letter-spacing: 0.5px;
+}
+
+.submit-button:hover {
+    background-color: var(--accent-color);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.submit-button:disabled {
+    background-color: #999;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+.centered-button-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 1.5rem;
+}
+
+.submit-button.full-width {
+    width: 100%;
+    max-width: 300px;
+    padding: 1rem 1.5rem;
+    font-size: 1.1rem;
+}
+
+/* Spinner de carga */
+.loading-spinner {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: #fff;
+    animation: spin 1s ease-in-out infinite;
+    margin-right: 8px;
+    vertical-align: middle;
+    position: relative;
+    top: -1px;
+}
+
+/* Spinner de carga grande para secciones */
+.loading-spinner-large {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    border: 5px solid rgba(var(--primary-color-rgb), 0.3);
+    border-radius: 50%;
+    border-top-color: var(--primary-color);
+    animation: spin 1.2s ease-in-out infinite;
+    margin: 0 auto 15px auto;
+    box-shadow: 0 0 10px rgba(var(--primary-color-rgb), 0.1);
+}
+
+/* Contenedores de carga para fechas y horas */
+.loading-dates,
+.loading-times {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    text-align: center;
+    background-color: var(--secondary-color);
+    border: 1px solid rgba(var(--primary-color-rgb), 0.2);
+    border-radius: var(--border-radius);
+    margin-top: 10px;
+    min-height: 150px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.loading-dates p,
+.loading-times p {
+    margin-top: 15px;
+    color: var(--primary-color);
+    font-weight: 600;
+    font-size: 1.05rem;
+    line-height: 1.4;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.confirmation-footer {
+    display: flex;
+    padding: 1.5rem;
+    background-color: #f9f9f9;
+    border-top: 1px solid #eee;
+    gap: 1rem;
+}
+
+/* Contenedor del botón y su mensaje de estado */
+.button-container {
+    display: flex;
+    flex-direction: column;
+    flex: 2;
+}
+
+/* Mensaje de estado del botón */
+.button-status-message {
+    font-size: 0.85rem;
+    color: #666;
+    margin-top: 0.5rem;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.button-status-message.error {
+    color: #d9534f;
+    font-weight: 500;
+}
+
+.button-status-message.success {
+    color: #5cb85c;
+    font-weight: 500;
+}
+
+.back-button {
+    background-color: #f0f0f0;
+    color: var(--text-color);
+    border: none;
+    padding: 0.5rem 0.8rem;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-weight: 400;
+    transition: var(--transition);
+    flex: 0.5;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.3rem;
+    font-size: 0.85rem;
+    white-space: nowrap;
+}
+
+.back-button:hover {
+    background-color: #e0e0e0;
+}
+
+.secondary-button:hover {
+    background-color: #e0e0e0;
+    color: #444;
+    transform: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Confirmation Step */
+.confirmation-summary {
+    background-color: var(--secondary-color);
+    border-radius: var(--border-radius);
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.confirmation-summary h3 {
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.summary-item {
+    display: flex;
+    margin-bottom: 0.8rem;
+}
+
+.summary-label {
+    font-weight: 600;
+    width: 100px;
+}
+
+.summary-value {
+    flex: 1;
+}
+
+.answers-summary {
+    margin-bottom: 1.5rem;
+}
+
+.answers-summary h3 {
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.summary-answers {
+    background-color: white;
+    padding: 1rem;
+    border-radius: var(--border-radius);
+    margin-bottom: 1rem;
+}
+
+.confirmation-instructions {
+    margin-bottom: 1.5rem;
+    background-color: var(--secondary-color);
+    padding: 1.5rem;
+    border-radius: var(--border-radius);
+    text-align: center;
+}
+
+.confirmation-instructions p {
+    margin-bottom: 1rem;
+    line-height: 1.5;
+}
+
+.confirmation-instructions p:last-child {
+    margin-bottom: 0;
+}
+
+.confirmation-instructions strong {
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+/* Estilos para el checkbox de confirmación de pago */
+.payment-confirmation-checkbox {
+    margin: 1.5rem 0;
+    padding: 1rem;
+    background-color: var(--highlight-color-light);
+    border-radius: var(--border-radius);
+    border-left: 3px solid var(--highlight-color);
+}
+
+/* Contenedor del checkbox personalizado */
+.checkbox-container {
+    display: flex;
+    align-items: flex-start;
+    position: relative;
+    padding-left: 35px;
+    cursor: pointer;
+    font-size: 1rem;
+    user-select: none;
+    line-height: 1.4;
+}
+
+/* Ocultar el checkbox predeterminado */
+.checkbox-container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+/* Crear el checkbox personalizado */
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 24px;
+    width: 24px;
+    background-color: #fff;
+    border: 2px solid var(--primary-color);
+    border-radius: 4px;
+    transition: all 0.2s ease;
+}
+
+/* Al pasar el mouse sobre el contenedor, cambiar el color del checkbox */
+.checkbox-container:hover input~.checkmark {
+    background-color: #f0f0f0;
+}
+
+/* Cuando el checkbox está marcado, cambiar el color de fondo */
+.checkbox-container input:checked~.checkmark {
+    background-color: var(--primary-color);
+}
+
+/* Crear el indicador de marca (oculto cuando no está marcado) */
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+/* Mostrar el indicador cuando está marcado */
+.checkbox-container input:checked~.checkmark:after {
+    display: block;
+}
+
+/* Estilo del indicador de marca (✓) */
+.checkbox-container .checkmark:after {
+    left: 9px;
+    top: 5px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+/* Estilo para el texto del checkbox */
+#payment-confirmation-text {
+    font-weight: 500;
+    color: var(--text-color);
+}
+
+/* Estilo para la fecha y hora dentro del texto del checkbox */
+#payment-date-time {
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+.bank-details {
+    background-color: var(--secondary-color);
+    border-radius: var(--border-radius);
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+
+.bank-detail-item {
+    display: flex;
+    margin-bottom: 0.5rem;
+}
+
+.bank-label {
+    font-weight: 600;
+    width: 80px;
+}
+
+.bank-value {
+    flex: 1;
+}
+
+/* Validation Message */
+.validation-message {
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+    color: #dc3545;
+    display: none;
+}
+
+.validation-message.error {
+    display: block;
+    color: #dc3545;
+    background-color: rgba(220, 53, 69, 0.1);
+    padding: 0.5rem;
+    border-radius: var(--border-radius);
+    border-left: 3px solid #dc3545;
+}
+
+.validation-message.success {
+    display: block;
+    color: #28a745;
+    background-color: rgba(40, 167, 69, 0.1);
+    padding: 0.5rem;
+    border-radius: var(--border-radius);
+    border-left: 3px solid #28a745;
+}
+
+/* Location Error */
+.location-error {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 2rem;
+}
+
+.location-error h3 {
+    color: #e67e22;
+    margin-bottom: 1rem;
+}
+
+.location-error p {
+    margin-bottom: 1rem;
+}
+
+.location-highlight {
+    font-weight: bold;
+    color: var(--primary-color);
+    background-color: var(--secondary-color);
+    padding: 0.8rem;
+    border-radius: var(--border-radius);
+    margin: 0.5rem 0 1.5rem;
+    display: inline-block;
+}
+
+.restart-button {
+    background-color: var(--primary-color);
+    color: var(--light-text);
+    border: none;
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: var(--transition);
+    margin-top: 1rem;
+}
+
+.restart-button:hover {
+    background-color: var(--accent-color);
+}
+
+/* Shake Animation for Validation */
+@keyframes shake {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    10%,
+    30%,
+    50%,
+    70%,
+    90% {
+        transform: translateX(-5px);
+    }
+
+    20%,
+    40%,
+    60%,
+    80% {
+        transform: translateX(5px);
+    }
+}
+
+.shake {
+    animation: shake 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 900px) {
+    .container {
+        max-width: 100%;
+        height: 100vh;
+        max-height: none;
+        border-radius: 0;
+    }
+
+    body {
+        background: white;
+    }
+}
+
+@media (max-width: 768px) {
+    .compact-title {
+        font-size: 2rem;
+    }
+
+    .simple-intro {
+        font-size: 1.1rem;
+    }
+
+    .cta-button {
+        padding: 1rem 2rem;
+        font-size: 1.2rem;
+    }
+
+    .doctor-profile {
+        margin-bottom: 1rem;
+        padding-bottom: 0.8rem;
+    }
+
+    .doctor-image {
+        width: 100px;
+        height: 100px;
+    }
+
+    .doctor-name {
+        font-size: 1rem;
+    }
+
+    .question h3 {
+        font-size: 1.3rem;
+    }
+
+    .option {
+        padding: 0.8rem;
+    }
+
+    .results-container h2 {
+        font-size: 1.3rem;
+        padding: 0.8rem 1.2rem;
+    }
+
+    .pricing-info h3 {
+        font-size: 1.2rem;
+    }
+
+    .price-row {
+        padding: 0.7rem 0.8rem;
+    }
+
+    .form-container h2 {
+        font-size: 1.4rem;
+    }
+
+    .form-container h3 {
+        font-size: 1.2rem;
+    }
+
+    .form-group label {
+        font-size: 0.95rem;
+    }
+
+    .form-group input,
+    .form-group select {
+        padding: 0.7rem;
+    }
+
+    .submit-button,
+    .back-button {
+        padding: 0.7rem 1rem;
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 0;
+    }
+
+    .landing-content,
+    .quiz-container,
+    .results-container,
+    .form-container {
+        padding: 1.5rem 1rem;
+    }
+
+    .compact-title {
+        font-size: 1.8rem;
+    }
+
+    .simple-intro {
+        font-size: 1rem;
+    }
+
+    .cta-button {
+        padding: 0.8rem 1.5rem;
+        font-size: 1.1rem;
+        width: 100%;
+    }
+
+    .doctor-profile {
+        margin-bottom: 0.8rem;
+        padding-bottom: 0.6rem;
+    }
+
+    .doctor-image {
+        width: 100px;
+        height: 100px;
+        border-width: 2px;
+    }
+
+    .doctor-name {
+        font-size: 0.9rem;
+    }
+
+    .question h3 {
+        font-size: 1.2rem;
+    }
+
+    .option {
+        padding: 0.5rem;
+        font-size: 0.95rem;
+    }
+
+    .buttons {
+        padding: 0.8rem 1rem;
+    }
+
+    .nav-button {
+        padding: 0.7rem 1.2rem;
+        font-size: 1rem;
+    }
+
+    .results-container h2 {
+        font-size: 1.2rem;
+        padding: 0.7rem 1rem;
+    }
+
+    .price-row {
+        padding: 0.6rem 0.7rem;
+        font-size: 0.9rem;
+    }
+
+    .price-row.price-detail {
+        padding: 0.5rem 0.7rem 0.5rem 1.5rem;
+        font-size: 0.85rem;
+    }
+
+    .form-container h2 {
+        font-size: 1.3rem;
+    }
+
+    .form-container h3 {
+        font-size: 1.1rem;
+    }
+
+    .form-group label {
+        font-size: 0.9rem;
+    }
+
+    .form-group input,
+    .form-group select {
+        padding: 0.6rem;
+        font-size: 0.95rem;
+    }
+
+    /* Mejorar el checkbox en móviles */
+    .payment-confirmation {
+        padding: 0.8rem;
+        margin-bottom: 1.2rem;
+    }
+
+    .payment-confirmation input {
+        width: 24px;
+        height: 24px;
+        margin-right: 0.6rem;
+    }
+
+    .payment-confirmation label {
+        font-size: 0.9rem;
+        line-height: 1.3;
+    }
+
+    .confirmation-footer {
+        padding: 1rem;
+    }
+
+    .submit-button,
+    .back-button {
+        padding: 0.6rem 0.8rem;
+        font-size: 0.95rem;
+    }
+}
+
+/* Animación de carga */
+.loading-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    text-align: center;
+    background-color: rgba(245, 245, 245, 0.7);
+    border-radius: var(--border-radius);
+    margin: 1rem 0;
+}
+
+.loading-spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid rgba(var(--primary-color-rgb), 0.3);
+    border-radius: 50%;
+    border-top-color: var(--primary-color);
+    animation: spin 1s linear infinite;
+    margin-bottom: 1rem;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.loading-container p {
+    color: var(--primary-color);
+    font-weight: 500;
+    margin: 0;
+}
+
+/* Mensaje de redirección */
+.redirect-message {
+    margin-top: 15px;
+    padding: 10px;
+    background-color: var(--secondary-color);
+    border-radius: var(--border-radius);
+    text-align: center;
+    color: var(--primary-color);
+    font-weight: 500;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+/* Contenedor del botón y su mensaje de estado */
+.button-container {
+    display: flex;
+    flex-direction: column;
+    flex: 2;
+}
+
+/* Mensaje de estado del botón */
+.button-status-message {
+    font-size: 0.85rem;
+    color: #666;
+    margin-top: 0.5rem;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.button-status-message.error {
+    color: #d9534f;
+    font-weight: 500;
+}
+
+.button-status-message.success {
+    color: #5cb85c;
+    font-weight: 500;
+}
+
+/* Estilos para el checkbox de confirmación de pago */
+.payment-confirmation-checkbox {
+    margin: 1.5rem 0;
+    padding: 1rem;
+    background-color: var(--highlight-color-light);
+    border-radius: var(--border-radius);
+    border-left: 3px solid var(--highlight-color);
+}
+
+/* Contenedor del checkbox personalizado */
+.checkbox-container {
+    display: flex;
+    align-items: flex-start;
+    position: relative;
+    padding-left: 35px;
+    cursor: pointer;
+    font-size: 1rem;
+    user-select: none;
+    line-height: 1.4;
+}
+
+/* Ocultar el checkbox predeterminado */
+.checkbox-container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+/* Crear el checkbox personalizado */
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 24px;
+    width: 24px;
+    background-color: #fff;
+    border: 2px solid var(--primary-color);
+    border-radius: 4px;
+    transition: all 0.2s ease;
+}
+
+/* Al pasar el mouse sobre el contenedor, cambiar el color del checkbox */
+.checkbox-container:hover input~.checkmark {
+    background-color: #f0f0f0;
+}
+
+/* Cuando el checkbox está marcado, cambiar el color de fondo */
+.checkbox-container input:checked~.checkmark {
+    background-color: var(--primary-color);
+}
+
+/* Crear el indicador de marca (oculto cuando no está marcado) */
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+/* Mostrar el indicador cuando está marcado */
+.checkbox-container input:checked~.checkmark:after {
+    display: block;
+}
+
+/* Estilo del indicador de marca (✓) */
+.checkbox-container .checkmark:after {
+    left: 9px;
+    top: 5px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+/* Estilo para el texto del checkbox */
+#payment-confirmation-text {
+    font-weight: 500;
+    color: var(--text-color);
+}
+
+/* Estilo para la fecha y hora dentro del texto del checkbox */
+#payment-date-time {
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+/* Estilos para móviles */
+@media (max-width: 768px) {
+    .button-status-message {
+        font-size: 0.8rem;
+        margin-top: 0.4rem;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+/* Fix for distorted doctor image */
+.doctor-image {
+    width: 110px;
+    height: auto;
+    border-radius: 15px;
+    margin-bottom: 0.5rem;
+    border: 3px solid var(--primary-color);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
