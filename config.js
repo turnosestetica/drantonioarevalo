@@ -24,7 +24,7 @@ const CLIENTS_CONFIG = {
       startButtonText: "Evaluar Gratis Ahora",
       appointmentButtonText: "Ver disponibilidad",
       qualificationTitle: "¡Buenas noticias!",
-      qualificationMessage: "Basado en tus respuestas, eres un buen candidato para una consulta con el Dr. Antonio Arévalo.",
+      qualificationMessage: "Basado en tus respuestas, eres un buen candidato para una consulta con el Dr. Antonio Arévalo. Ten en cuenta que el Dr. opera en el Sanatorio Otamendi con los máximos protocolos de seguridad y mejor tecnología.",
       qualificationAction: "Agenda una consulta para recibir una evaluación personalizada.",
       priceNote: "Podrías ser candidato para un procedimiento de cirugía plástica. Para comprobarlo, solicita una cita de evaluación.",
       confirmationText: {
@@ -65,7 +65,7 @@ const CLIENTS_CONFIG = {
         key: "procedure"
       },
       {
-        question: "¿Puedes asistir a nuestra clínica en Aguilar 2438, Colegiales, Piso 7 (Sanatorio Otamendi)?",
+        question: "¿Puedes asistir a nuestra clínica en Aguilar 2438, Colegiales, Piso 7?",
         options: ["Sí, puedo asistir", "No, me queda muy lejos"],
         key: "location"
       },
