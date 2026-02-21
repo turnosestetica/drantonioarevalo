@@ -1644,14 +1644,33 @@ document.addEventListener('DOMContentLoaded', () => {
             // Continuar sin ordenar
         }
 
+        const diasSemana = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
+
         // Añadir cada fecha al grid
         availableDates.forEach(date => {
             // Verificar que la fecha tenga horarios disponibles
             if (availabilityData[date] && availabilityData[date].length > 0) {
+                // Formatear la fecha a estilo "Lunes 24/2/2026"
+                let formattedDate = date;
+                try {
+                    const parts = date.split('-');
+                    if (parts.length === 3) {
+                        const year = parseInt(parts[0], 10);
+                        const month = parseInt(parts[1], 10);
+                        const day = parseInt(parts[2], 10);
+                        const dateObj = new Date(year, month - 1, day);
+                        const dayName = diasSemana[dateObj.getDay()];
+                        formattedDate = `${dayName} ${day}/${month}/${year}`;
+                    }
+                } catch (e) {
+                    console.error('Error formateando fecha', e);
+                }
+
                 const dateOption = document.createElement('div');
                 dateOption.className = 'date-option';
                 dateOption.dataset.value = date; // Guardar el valor en un atributo data
-                dateOption.textContent = date;
+                dateOption.dataset.formatted = formattedDate; // Guardar versión formateada
+                dateOption.textContent = formattedDate;
 
                 // Agregar evento click para seleccionar la fecha
                 dateOption.addEventListener('click', function () {
@@ -1667,7 +1686,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     dateInput.value = this.dataset.value;
 
                     // Actualizar el texto de resumen
-                    document.getElementById('selected-date-display').textContent = this.dataset.value;
+                    document.getElementById('selected-date-display').textContent = this.dataset.formatted;
 
                     // Cargar las horas disponibles para esta fecha
                     loadAvailableHours();
