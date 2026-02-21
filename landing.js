@@ -283,7 +283,7 @@ window.submitForm = function () {
         origen: `Landing ${CONFIG && CONFIG.clinic ? CONFIG.clinic.name : 'Web'}`
     };
 
-    const submissionUrl = (CONFIG && CONFIG.webhooks && CONFIG.webhooks.formSubmission) ? CONFIG.webhooks.formSubmission : 'https://sswebhookss.odontolab.co/webhook/0dc8f34f-0992-419f-a841-b3782f2556a5';
+    const submissionUrl = (CONFIG && CONFIG.webhooks && CONFIG.webhooks.formSubmission) ? CONFIG.webhooks.formSubmission : 'https://sswebhookss.odontolab.co/webhook/1128bc3f-6675-4180-97f0-bc0adcdce76a';
     fetch(submissionUrl, {
         method: 'POST',
         headers: {
@@ -2529,19 +2529,16 @@ document.addEventListener('DOMContentLoaded', () => {
             finishButton.innerHTML = '<span class="loading-spinner"></span> Procesando...';
 
             // Primero, obtener el link de pago de Mercado Pago
-            fetch('https://sswebhookss.odontolab.co/webhook/c0cb515e-caf1-424f-b67c-84c022d90eae', {
+            const paymentWebhookUrl = CONFIG && CONFIG.webhooks && CONFIG.webhooks.paymentLink ? CONFIG.webhooks.paymentLink : 'https://sswebhookss.odontolab.co/webhook/913b049b-4c1a-4a3b-b1f0-129888a96abb';
+            fetch(paymentWebhookUrl, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify([
-                    {
-                        "cliente": "bossi",
-                        "paciente": fullname,
-                        "telefono": whatsapp.replace(/\D/g, ''),
-                        "whatsapp_cliente": "5493812093646"
-                    }
-                ])
+                body: JSON.stringify({
+                    "nombre": fullname,
+                    "telefono": whatsapp.replace(/\D/g, '')
+                })
             })
                 .then(response => response.json())
                 .then(data => {
@@ -2566,7 +2563,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         formData.mercadopago_link = mercadoPagoLink;
 
                         // Enviar datos al endpoint usando jQuery AJAX
-                        const targetUrl = CONFIG && CONFIG.webhooks ? CONFIG.webhooks.formSubmission : "https://sswebhookss.odontolab.co/webhook/0dc8f34f-0992-419f-a841-b3782f2556a5";
+                        const targetUrl = CONFIG && CONFIG.webhooks ? CONFIG.webhooks.formSubmission : "https://sswebhookss.odontolab.co/webhook/1128bc3f-6675-4180-97f0-bc0adcdce76a";
 
                         jQuery.ajax({
                             url: targetUrl,
