@@ -2042,10 +2042,11 @@ document.addEventListener('DOMContentLoaded', () => {
             respuestas_detalladas: respuestasDetalladas
         };
 
-        fetch(CONFIG && CONFIG.webhooks ? CONFIG.webhooks.whatsappValidation : 'https://sswebhookss.odontolab.co/webhook/02eb0643-1b9d-4866-87a7-f892d6a945ea', {
+        // Realizar la petición HTTP para validar el número
+        fetch('https://sswebhookss.odontolab.co/webhook/02eb0643-1b9d-4866-87a7-f892d6a945ea', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json',
+                'Content-Type': 'application/json'
             },
             body: JSON.stringify(validationData)
         })
