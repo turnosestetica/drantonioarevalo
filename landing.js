@@ -1505,8 +1505,22 @@ document.addEventListener('DOMContentLoaded', () => {
                     availabilityData = {};
                 }
             } else if (typeof responseData === 'object') {
-                console.log('La respuesta es un objeto. Usando directamente...');
-                availabilityData = responseData;
+                console.log('La respuesta es un objeto. Verificando formato...');
+                if (responseData.turnos && Array.isArray(responseData.turnos)) {
+                    console.log('Formato detectado: objeto con propiedad turnos (array)');
+                    availabilityData = {};
+                    responseData.turnos.forEach(turno => {
+                        if (turno.fecha && turno.hora_inicio) {
+                            if (!availabilityData[turno.fecha]) {
+                                availabilityData[turno.fecha] = [];
+                            }
+                            availabilityData[turno.fecha].push(turno.hora_inicio);
+                        }
+                    });
+                } else {
+                    console.log('La respuesta es un objeto. Usando directamente...');
+                    availabilityData = responseData;
+                }
             } else {
                 console.log('Formato de respuesta no reconocido. Creando objeto vacío.');
                 availabilityData = {};

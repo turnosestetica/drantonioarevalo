@@ -29,7 +29,7 @@ const CLIENTS_CONFIG = {
       priceNote: "Podrías ser candidato para un procedimiento de cirugía plástica. Para comprobarlo, solicita una cita de evaluación.",
       confirmationText: {
         saveAndRedirect: "Al dar clic en <strong>PAGAR CITA →</strong>, se generará tu link de pago seguro para abonar el anticipo ($25.000). Sólo confirmamos citas con pago anticipado.",
-        depositInfo: "Recuerda que se requiere el pago anticipado de $25.000 (50% de la cita) para confirmar tu turno. El 50% restante ($25.000) se abona el día de la visita en la clínica en Sanatorio Otamendi."
+        depositInfo: "Recuerda que se requiere el pago anticipado de $25.000 (50% de la cita) para confirmar tu turno. El 50% restante ($25.000) se abona el día de la visita en la clínica."
       },
       whatsappMessage: {
         greeting: "Hola, soy {nombre} y me interesa agendar una consulta con el Dr. Antonio Arévalo.",
