@@ -168,8 +168,8 @@ const CLIENTS_CONFIG = {
 
     // Configuración de Facebook Pixel (Dejar genérico o vacío si no se provee)
     facebookPixel: {
-      id: "",
-      enabledEvents: false
+      id: "1462797308899748",
+      enabledEvents: true
     }
   }
 };
