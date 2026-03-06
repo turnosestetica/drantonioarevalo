@@ -65,7 +65,7 @@ const CLIENTS_CONFIG = {
         key: "procedure"
       },
       {
-        question: "¿Puedes asistir a nuestra clínica en Aguilar 2438, Colegiales, Piso 7?",
+        question: "¿Puedes asistir a nuestro consultorio en Aguilar 2438, Colegiales, Piso 7?",
         options: ["Sí, puedo asistir", "No, me queda muy lejos"],
         key: "location"
       },
